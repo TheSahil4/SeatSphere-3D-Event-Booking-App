@@ -113,7 +113,7 @@ insert into public.artists (id, name, slug, biography, category, profile_image_u
   ('d0000000-0000-0000-0000-000000000005', 'Velocity Esports', 'velocity-esports', 'A top-tier esports organisation competing in international FPS and MOBA leagues.', 'Esports', 'https://images.pexels.com/photos/7973868/pexels-photo-7973868.jpeg', 'https://images.pexels.com/photos/2115256/pexels-photo-2115256.jpeg', 'demo@velocityesports.example', '555-0204', true),
   ('d0000000-0000-0000-0000-000000000006', 'Saanvi Iyer', 'saanvi-iyer', 'Classical violinist and composer bridging Indian ragas with orchestral arrangements.', 'Concerts', 'https://images.pexels.com/photos/5192250/pexels-photo-5192250.jpeg', 'https://images.pexels.com/photos/164743/pexels-photo-164743.jpg', 'demo@saanviiyer.example', '555-0205', true),
   ('d0000000-0000-0000-0000-000000000007', 'The Midnight Set', 'midnight-set', 'Indie rock four-piece from Delhi with a reputation for electric live shows.', 'Concerts', 'https://images.pexels.com/photos/995301/pexels-photo-995301.jpeg', 'https://images.pexels.com/photos/167636/pexels-photo-167636.jpeg', 'demo@midnightset.example', '555-0206', true),
-  ('d0000000-0000-0000-0000-000000000008', 'Dr. Meera Rao', 'meera-rao', 'Keynote speaker on technology ethics and the future of AI.', 'Conferences', 'https://images.pexels.com/photos/3760262/pexels-photo-3760262.jpeg', 'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg', 'demo@meerarao.example', '555-0207', true),
+  ('d0000000-0000-0000-0000-000000000008', 'Dr. Meera Rao', 'meera-rao', 'Keynote speaker on technology ethics and the future of AI.', 'Conferences', null, 'https://images.pexels.com/photos/1181271/pexels-photo-1181271.jpeg', 'demo@meerarao.example', '555-0207', true),
   ('d0000000-0000-0000-0000-000000000009', 'Carnival Collective', 'carnival-collective', 'A 20-piece brass and percussion ensemble bringing street-carnival energy to festivals.', 'Festivals', 'https://images.pexels.com/photos/167005/pexels-photo-167005.jpeg', 'https://images.pexels.com/photos/1190297/pexels-photo-1190297.jpeg', 'demo@carnivalcollective.example', '555-0208', true),
   ('d0000000-0000-0000-0000-000000000010', 'Bengaluru Strikers', 'bengaluru-strikers', 'Professional football club competing in the national league.', 'Sports', 'https://images.pexels.com/photos/2744358/pexels-photo-2744358.jpeg', 'https://images.pexels.com/photos/209977/pexels-photo-209977.png', 'demo@strikers.example', '555-0209', true)
 on conflict (slug) do update set name = excluded.name, biography = excluded.biography, profile_image_url = excluded.profile_image_url, cover_image_url = excluded.cover_image_url;
@@ -155,8 +155,8 @@ insert into public.events (id, title, slug, description, short_description, cate
    'India''s favourite observational comedian brings his new hour to Pune.',
    'Stand-up comedy with Rajesh Kumar at Astra Arena.',
    'Stand-up Comedy', '11111111-1111-1111-1111-111111111111',
-   'https://images.pexels.com/photos/3760262/pexels-photo-3760262.jpeg',
-   'https://images.pexels.com/photos/3760262/pexels-photo-3760262.jpeg',
+   null,
+   null,
    'Hindi', '18+', 100, '2026-11-08', '20:00', '21:40', '19:00',
    now(), '2026-11-08 19:00:00+05:30', 4200, 699, 1799, 'booking_open',
    'Cancellations up to 48 hours: 75% refund.', 'Refunds within 7 business days.', 'Demo event.', false, true, null),
