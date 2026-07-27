@@ -10,6 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { formatDate, formatTime, formatINR } from '@/lib/format';
+import { safeImageUrl } from '@/lib/media';
 import type { Booking, Event } from '@/types/database';
 
 export default function CustomerDashboard() {
@@ -71,8 +72,8 @@ export default function CustomerDashboard() {
       {nearest && (
         <Card className="mt-6 overflow-hidden bg-card p-0">
           <div className="flex flex-col sm:flex-row">
-            {nearest.event.banner_url && (
-              <img src={nearest.event.banner_url} alt="" className="h-40 w-full object-cover sm:w-48" />
+            {safeImageUrl(nearest.event.banner_url) && (
+              <img src={safeImageUrl(nearest.event.banner_url) ?? undefined} alt="" className="h-40 w-full object-cover sm:w-48" />
             )}
             <div className="flex-1 p-5">
               <Badge className="mb-2 border-emerald-500/30 bg-emerald-500/10 text-emerald-400">Next event</Badge>

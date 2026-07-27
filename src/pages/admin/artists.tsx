@@ -14,6 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { EmptyState } from '@/components/common/empty-state';
 import { toast } from 'sonner';
 import { slugify } from '@/lib/format';
+import { safeImageUrl } from '@/lib/media';
 import type { Artist } from '@/types/database';
 
 const schema = z.object({
@@ -129,8 +130,8 @@ export default function AdminArtists() {
         <div className="grid gap-4 sm:grid-cols-3 lg:grid-cols-4">
           {artists.map((a) => (
             <Card key={a.id} className="overflow-hidden bg-card p-0">
-              {a.profile_image_url && (
-                <img src={a.profile_image_url} alt="" className="aspect-square w-full object-cover" />
+              {safeImageUrl(a.profile_image_url) && (
+                <img src={safeImageUrl(a.profile_image_url) ?? undefined} alt="" className="aspect-square w-full object-cover" />
               )}
               <div className="p-3">
                 <p className="text-sm font-semibold">{a.name}</p>

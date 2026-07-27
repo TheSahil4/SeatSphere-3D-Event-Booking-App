@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { EmptyState } from '@/components/common/empty-state';
 import { formatDate } from '@/lib/format';
+import { safeImageUrl } from '@/lib/media';
 import { toast } from 'sonner';
 import type { Event } from '@/types/database';
 
@@ -51,8 +52,8 @@ export default function AdminEvents() {
           {events.map((e) => (
             <Card key={e.id} className="flex items-center justify-between bg-card p-4">
               <div className="flex items-center gap-4">
-                {e.thumbnail_url && (
-                  <img src={e.thumbnail_url} alt="" className="h-12 w-16 rounded object-cover" />
+                {safeImageUrl(e.thumbnail_url) && (
+                  <img src={safeImageUrl(e.thumbnail_url) ?? undefined} alt="" className="h-12 w-16 rounded object-cover" />
                 )}
                 <div>
                   <p className="font-semibold">{e.title}</p>

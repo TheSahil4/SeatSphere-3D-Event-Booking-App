@@ -23,6 +23,7 @@ import { PageLoader } from '@/components/common/page-loader';
 import { ErrorState } from '@/components/common/error-state';
 import { EventCard } from '@/components/common/event-card';
 import { formatINR, formatDate, formatTime, formatDateTime } from '@/lib/format';
+import { safeImageUrl } from '@/lib/media';
 import { useAuth } from '@/hooks/use-auth';
 import type { Event, Venue, EventArtist, EventSeat, Review } from '@/types/database';
 
@@ -112,6 +113,8 @@ export default function EventDetailsPage() {
   if (isError) return <ErrorState onRetry={refetch} />;
   if (!event) return <ErrorState title="Event not found" message="This event may have been removed." />;
 
+  const bannerUrl = safeImageUrl(event.banner_url);
+
   const remaining = seatStats ? seatStats.total - seatStats.booked : 0;
   const bookedPct = seatStats && seatStats.total > 0 ? (seatStats.booked / seatStats.total) * 100 : 0;
 
@@ -127,8 +130,8 @@ export default function EventDetailsPage() {
     <div>
       {/* Banner */}
       <div className="relative h-[40vh] min-h-[280px] w-full overflow-hidden sm:h-[50vh]">
-        {event.banner_url && (
-          <img src={event.banner_url} alt={event.title} className="h-full w-full object-cover" />
+        {bannerUrl && (
+          <img src={bannerUrl} alt={event.title} className="h-full w-full object-cover" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-transparent" />
         <div className="absolute left-4 top-4 sm:left-8 sm:top-8">
@@ -230,10 +233,10 @@ export default function EventDetailsPage() {
                 <div className="grid gap-4 sm:grid-cols-2">
                   {artists.map((ea) => (
                     <Card key={ea.id} className="flex items-center gap-4 bg-card p-4">
-                      {ea.artist?.profile_image_url && (
+                      {safeImageUrl(ea.artist?.profile_image_url) && (
                         <img
-                          src={ea.artist.profile_image_url}
-                          alt={ea.artist.name}
+                          src={safeImageUrl(ea.artist?.profile_image_url) ?? undefined}
+                          alt={ea.artist?.name ?? ''}
                           className="h-14 w-14 rounded-xl object-cover"
                         />
                       )}

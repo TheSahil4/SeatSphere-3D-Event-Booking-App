@@ -3,17 +3,20 @@ import { Calendar, MapPin, Clock } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { formatINR, formatDate, formatTime } from '@/lib/format';
+import { safeImageUrl } from '@/lib/media';
 import type { EventWithVenue } from '@/types/database';
 
 export function EventCard({ event }: { event: EventWithVenue }) {
   const remaining = event.capacity_limit > 0;
+  const bannerUrl = safeImageUrl(event.banner_url);
+
   return (
     <Link to={`/events/${event.slug}`} className="group block">
       <Card className="overflow-hidden border-border/60 bg-card p-0 transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5">
         <div className="relative aspect-[16/9] overflow-hidden">
-          {event.banner_url ? (
+          {bannerUrl ? (
             <img
-              src={event.banner_url}
+              src={bannerUrl}
               alt={event.title}
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"

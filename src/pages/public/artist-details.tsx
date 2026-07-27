@@ -9,6 +9,7 @@ import { PageLoader } from '@/components/common/page-loader';
 import { ErrorState } from '@/components/common/error-state';
 import { EventCard } from '@/components/common/event-card';
 import { formatDate, formatTime } from '@/lib/format';
+import { safeImageUrl } from '@/lib/media';
 import type { Artist, EventArtist, EventWithVenue } from '@/types/database';
 
 export default function ArtistDetailsPage() {
@@ -46,11 +47,14 @@ export default function ArtistDetailsPage() {
   if (isError) return <ErrorState onRetry={refetch} />;
   if (!artist) return <ErrorState title="Artist not found" />;
 
+  const coverImageUrl = safeImageUrl(artist.cover_image_url);
+  const profileImageUrl = safeImageUrl(artist.profile_image_url);
+
   return (
     <div>
       <div className="relative h-[32vh] min-h-[220px] overflow-hidden">
-        {artist.cover_image_url && (
-          <img src={artist.cover_image_url} alt="" className="h-full w-full object-cover opacity-50" />
+        {coverImageUrl && (
+          <img src={coverImageUrl} alt="" className="h-full w-full object-cover opacity-50" />
         )}
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/80 to-transparent" />
         <div className="absolute left-4 top-4 sm:left-8">
@@ -64,9 +68,9 @@ export default function ArtistDetailsPage() {
 
       <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end">
-          {artist.profile_image_url && (
+          {profileImageUrl && (
             <img
-              src={artist.profile_image_url}
+              src={profileImageUrl}
               alt={artist.name}
               className="h-28 w-28 rounded-2xl border-2 border-border object-cover sm:h-32 sm:w-32"
             />

@@ -1,16 +1,19 @@
 import { Link } from 'react-router-dom';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { safeImageUrl } from '@/lib/media';
 import type { Artist } from '@/types/database';
 
 export function ArtistCard({ artist, eventCount = 0 }: { artist: Artist; eventCount?: number }) {
+  const profileImageUrl = safeImageUrl(artist.profile_image_url);
+
   return (
     <Link to={`/artists/${artist.slug}`} className="group block">
       <Card className="overflow-hidden border-border/60 bg-card p-0 transition-all duration-300 hover:border-primary/40 hover:shadow-xl hover:shadow-primary/5">
         <div className="relative aspect-square overflow-hidden">
-          {artist.profile_image_url ? (
+          {profileImageUrl ? (
             <img
-              src={artist.profile_image_url}
+              src={profileImageUrl}
               alt={artist.name}
               loading="lazy"
               className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
